@@ -11,7 +11,7 @@ class Fruits(models.Model):
     PhoneNumber=models.CharField(max_length=12,null= True)
     FullName=models.CharField(max_length=25,null= True)
     FruitName = models.CharField(max_length=100)
-    Image = models.ImageField(null=True,blank=True)
+    Image = models.ImageField(null=True,blank=True,upload_to="images")
     Price = models.CharField(max_length=100)
     Description = models.CharField(max_length=100)
 
