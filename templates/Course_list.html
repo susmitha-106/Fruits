@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<h1>{{user.username}}'s Course</h1>
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <table class="table table-success table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Youtube_link</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in Course_list %}
+      <tr>
+        <td>{{i.title}}</td>
+        <td><a href="{% url 'open_youtube_link' i.id %}">{{i.youtube_link}}</td>
+      
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
+<ul>
+
+{% endblock %}
+

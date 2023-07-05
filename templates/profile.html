@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock title %}
+{% block head %}
+
+
+
+
+<div class="container">
+
+    <div class="row">
+    
+    <div class="col-md-4">
+      
+    <h1>User Fruits Details</h1></br>
+    {% comment %} Contact Us COde  {% endcomment %}
+    {% for post in posts %}
+    
+   
+    <ul class="list-group">
+        <li class="list-group-item bg-warning text-dark"><h5>PhoneNumber : {{post.PhoneNumber}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Name : {{post.FullName}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>FruitName : {{post.FruitName}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Image : {{post.Image}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Price : {{post.Price}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Description : {{post.Description}}</h5></li>
+
+      
+       
+      </ul>
+      {% endfor %}
+    
+    </div>
+</div>
+    
+    
+</div>
+{% endblock head %}

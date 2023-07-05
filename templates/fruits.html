@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8">
+            <h1>Fruits</h1>
+            <br/>
+            <form method="POST" enctype="multipart/form-data">
+	        {% csrf_token %}
+       
+            <div class="mb-3">
+                    <input type="number" class="form-control mt-2" value="{{user.username}}"  name="PhoneNumber" placeholder="Enter Your Number" readonly required>
+                    </div>
+                
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="FullName" placeholder="Enter Your FulltName">
+                    </div>
+                
+
+            <div class="mb-3">
+                <input type="text" class="form-control" name="FruitName" placeholder="Enter Your FruitName">
+                </div>
+            <div class="mb-3">
+            
+                <input type="file" class="form-control" name="Image" required>   
+            
+            </div>
+    
+
+           
+
+            <div class="mb-3">
+            <input type="text" class="form-control" name="Price" placeholder="Enter Your amount">
+            </div>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" name="Description" placeholder="Enter Your Description">
+
+            </div>
+
+            <br/>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

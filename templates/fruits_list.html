@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Fruits_List</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    
+
+    <table class="table table-success table-striped">
+   
+        
+        <thead>
+          <tr>
+            <th>PhoneNumber</th>
+            <th>FullName</th>
+            <th>FruitName</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+
+            
+          </tr>
+        </thead>
+        <tbody>
+            {% for fruitslist in fruits_list  %}
+          <tr>
+            <td>{{fruitslist.PhoneNumber}}</td>
+            <td>{{fruitslist.FullName}}</td>
+            
+            <td>{{fruitslist.FruitName}}</td>
+            <td>
+                {% if fruitslist.Image %}
+                <img src={{fruitslist.Image.url}}  width="50" height="50"/>
+                {% endif %}
+                
+            </td>
+            
+            
+            <td>{{fruitslist.Price}}</td>
+            <td>{{fruitslist.Description}}</td>
+            
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    
+    </form>
+
+   
+
+{% endblock %}
