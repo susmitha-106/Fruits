@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for i in Course_list %}
+      {% for i in courses %}
       <tr>
         <td>{{i.title}}</td>
         <td><a href="{% url 'open_youtube_link' i.id %}">{{i.youtube_link}}</td>

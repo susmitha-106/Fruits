@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout', views.handlelogout, name='logout'),
     path('profile',views.profile,name="profile"),
     path('change_password/', change_password, name='change_password'),
-    path('Course_list/',views.Course_list, name='Course_list'),
+    path('Course_list/',views.course_list, name='course_list'),
     path('open_youtube_link/<int:course_id>/', views.open_youtube_link, name='open_youtube_link'),
     
     

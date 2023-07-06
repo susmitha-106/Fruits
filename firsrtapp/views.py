@@ -15,27 +15,25 @@ user = get_user_model()
 def home(request):
     return render(request,'base.html')
 
+@login_required(login_url='/login')
 def fruits(request):
-   if not request.user.is_authenticated:
-        messages.warning(request,"Please Login and Try Again")
-        return redirect('/login')
-   if request.method=='POST':
-            PhoneNumber=request.POST.get('PhoneNumber')
-            FullName=request.POST.get('FullName')
-            FruitName=request.POST['FruitName']
-            Image=request.FILES.get('Image')
-            Price=request.POST['Price']
-            Description=request.POST['Description']
+  if request.method=='POST':
+            phone_number=request.POST.get('PhoneNumber')
+            full_name=request.POST.get('FullName')
+            fruit_name=request.POST['FruitName']
+            image=request.FILES.get('Image')
+            price=request.POST['Price']
+            description=request.POST['Description']
 
-            F = Fruits(FruitName=FruitName,Image=Image,Price=Price,Description=Description,FullName=FullName,PhoneNumber=PhoneNumber)
-            F.save()
+            fruit = Fruits(FruitName=fruit_name,Image=image,Price=price,Description=description,FullName=full_name,PhoneNumber=phone_number)
+            fruit.save()
             messages.success(request,"Thanks For Enrollment")
             return redirect('/fruits_list')
-   return render(request,"fruits.html")
+  return render(request,"fruits.html")
       
    
 
-
+@login_required(login_url='/login')
 def fruits_list(request):
      fruits_list = Fruits.objects.all()
      return render(request,'fruits_list.html',{'fruits_list':fruits_list})
@@ -65,7 +63,6 @@ def signup(request):
         except Exception as identifier:
             pass
         
-        
         try:
             if User.objects.get(email=email):
                 messages.warning(request,"Email is Taken")
@@ -73,9 +70,6 @@ def signup(request):
            
         except Exception as identifier:
             pass
-        
-        
-        
         myuser=User.objects.create_user(username,email,pass1)
         myuser.save()
         messages.success(request,"User is Created Please Login")
@@ -84,9 +78,9 @@ def signup(request):
 
 def login_user(request):
     if request.method=="POST":
-        username=request.POST.get('usernumber')        
+        user_name=request.POST.get('usernumber')        
         pass1=request.POST.get('pass1')
-        myuser=authenticate(username=username,password=pass1)
+        myuser=authenticate(username=user_name,password=pass1)
         if myuser is not None:
             login(request,myuser)
             messages.success(request,"Login Successful")
@@ -101,20 +95,16 @@ def handlelogout(request):
     messages.success(request,"Logout Success")    
     return redirect('/login')
 
-
+@login_required(login_url='/login')
 def profile(request):
-    if not request.user.is_authenticated:
-        messages.warning(request,"Please Login and Try Again")
-        return redirect('/login')
     user_phone=request.user
     posts=Fruits.objects.filter(PhoneNumber=user_phone)
-    print(posts)
     context={"posts":posts}
     return render(request,"profile.html",context)
 
 
 
-@login_required
+@login_required(login_url='/login')
 def change_password(request):
     if request.method == 'POST':
         password = request.POST['new_password']
@@ -125,17 +115,18 @@ def change_password(request):
         return redirect('/login')  
     return render(request, 'change_password.html')
 
+@login_required(login_url='/login')
+def course_list(request):
+     courses = Course.objects.all()
+     return render(request,'course_list.html',{'courses':courses})
 
-def Course_list(request):
-     Course_list = Course.objects.all()
-     return render(request,'Course_list.html',{'Course_list':Course_list})
-
+@login_required(login_url='/login')
 def open_youtube_link(request, course_id):
     course = Course.objects.get(pk=course_id)
     youtube_link = course.youtube_link
 
     webbrowser.open_new_tab(youtube_link)
-    return redirect('/Course_list')
+    return redirect('course_list')
 
     #return HttpResponse('YouTube link opened successfully.')
 
